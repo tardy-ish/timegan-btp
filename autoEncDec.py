@@ -1,4 +1,3 @@
-from json import decoder
 import os
 import numpy as np
 from PIL import Image
@@ -11,14 +10,7 @@ from datetime import datetime
 import pytz
 IST = pytz.timezone('Asia/Kolkata')
 
-
-def import_data(folder_path,n = -1):
-    data = []
-    for img_l in os.listdir(folder_path):
-        image = Image.open(f"{folder_path}/{img_l}").convert("L").resize((1024,1024))
-        image = np.atleast_3d(image)
-        data.append(image)
-    return np.array(data)
+from data_processing import import_data
 
 def split_model(model_s):
     encoder = keras.Model(model_s.get_layer("INPUT").input,model_s.get_layer("CODE").output)
@@ -79,7 +71,7 @@ def main(args):
     autoEncDec.summary()
 
     X_train, X_test,_, _ = train_test_split(data, data, test_size=0.05, random_state=42)
-    autoEncDec.fit(
+    history = autoEncDec.fit(
         X_train,X_train, 
         epochs = args.epochs, 
         batch_size = args.batch_size, 
