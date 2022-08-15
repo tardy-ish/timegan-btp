@@ -20,8 +20,8 @@ def main(args):
 
     data = import_data(args.image_path,args.img_count)
 
-    encoder = keras.models.load_model(f"{CWD}/autoencoder_models/encoder.h5")
-    decoder = keras.models.load_model(f"{CWD}/autoencoder_models/decoder.h5")
+    encoder = keras.models.load_model(f"{CWD}/autoencoder_models/final/encoder.h5")
+    decoder = keras.models.load_model(f"{CWD}/autoencoder_models/final/decoder.h5")
 
     enc_data = encoder.predict(data)
 
