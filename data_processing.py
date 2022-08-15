@@ -6,6 +6,8 @@ def import_data(folder_path,n = -1):
     data = []
     i = 0
     for img_l in os.listdir(folder_path):
+        if not img_l.endswith(".jpeg"):
+            continue
         if n != -1 and i >= n:
             break
         i += 1
