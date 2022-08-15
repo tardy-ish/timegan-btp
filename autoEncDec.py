@@ -81,7 +81,7 @@ def main(args):
     encoder,decoder = split_model(autoEncDec)
 
     save_model(encoder,decoder)
-
+    print("Models have been saved")
     
 
 if __name__ == '__main__':  
