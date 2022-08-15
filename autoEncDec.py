@@ -101,7 +101,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--epochs',
         help='the number of epochs (should be optimized)',
-        default=300,
+        default=50,
         type=int)
     parser.add_argument(
         '--batch_size',
