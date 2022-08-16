@@ -77,9 +77,7 @@ def main(args):
         batch_size = args.batch_size, 
         validation_data=(X_test,X_test)
     )
-    # print(history.history())
-    d = history.history()
-    print(type(d))
+    print(history.history)
     encoder,decoder = split_model(autoEncDec)
 
     save_model(encoder,decoder)
