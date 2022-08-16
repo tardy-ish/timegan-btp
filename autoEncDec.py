@@ -129,8 +129,8 @@ if __name__ == '__main__':
         type=int)    
     parser.add_argument(
         '--loss',
-        choices=['mse','binary_crossentropy','mean_squared_logarithmic_error'],
-        default='mean_squared_logarithmic_error',
+        choices=['mse','binary_crossentropy','msle'],
+        default='msle',
         type=str)
     parser.add_argument(
         '--gpu_num',
