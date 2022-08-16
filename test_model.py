@@ -3,33 +3,47 @@ from os import path
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from datetime import datetime
+import pytz
+IST = pytz.timezone('Asia/Kolkata')
 
 from tensorflow import keras
 
 from ydata_synthetic.synthesizers import ModelParameters
-from ydata_synthetic.preprocessing.timeseries import processed_stock
 from ydata_synthetic.synthesizers.timeseries import TimeGAN
 
 import argparse
-from data_processing import import_data
+from data_processing import import_data, cluster_data
 
-CWD = os.getcwd()
+def save_model(model):
+    l = datetime.now(IST).strftime("%Y-%m-%d-%H-%M")
+    
+    new_dir = f"./timeGAN_models/{l}"
+    os.mkdir(new_dir)
+    model.save(f"{new_dir}/timeGAN_model.pk1")
+
+    return new_dir
 
 def main(args):
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_num)
 
     data = import_data(args.image_path,args.img_count)
 
-    encoder = keras.models.load_model(f"{CWD}/autoencoder_models/final/encoder.h5")
-    decoder = keras.models.load_model(f"{CWD}/autoencoder_models/final/decoder.h5")
+    encoder = keras.models.load_model(f"./autoencoder_models/final/encoder.h5")
+    decoder = keras.models.load_model(f"./autoencoder_models/final/decoder.h5")
 
     enc_data = encoder.predict(data)
+    clust_enc_data = cluster_data(enc_data)
+    print(len(clust_enc_data),clust_enc_data[0].shape)
 
     gan_args = ModelParameters(batch_size=args.batch_size,
                            lr=args.lr,
                            noise_dim=args.noise_dim,
                            layers_dim=args.dim)
 
+    synth = TimeGAN(model_parameters=gan_args, hidden_dim=24, seq_len=args.seq_len, n_seq=args.n_seq, gamma=args.gamma)
+    synth.train(clust_enc_data, train_steps=50000)
+    save_model(synth)
 
 
 

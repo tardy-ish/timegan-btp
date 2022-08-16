@@ -53,8 +53,8 @@ def create_model(image_shape):
 
 def save_model(enc,dec):
     l = datetime.now(IST).strftime("%Y-%m-%d-%H-%M")
-    cwd = os.getcwd()
-    new_dir = f"{cwd}/autoencoder_models/{l}"
+    
+    new_dir = f"./autoencoder_models/{l}"
     os.mkdir(new_dir)
     
     enc.save(f"{new_dir}/encoder.h5")
