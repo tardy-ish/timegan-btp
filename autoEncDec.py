@@ -77,13 +77,13 @@ def main(args):
         batch_size = args.batch_size, 
         validation_data=(X_test,X_test)
     )
-
+    print(history.history())
     encoder,decoder = split_model(autoEncDec)
 
     save_model(encoder,decoder)
     print("Models have been saved")
     
-
+# py autoEncDec.py --image_path /workspace/timegan-btp/data/images/ --img_count -1 --epochs 300 --batch_size 8 --gpu_num 3
 if __name__ == '__main__':  
 
     # Inputs for the main function
