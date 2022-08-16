@@ -8,6 +8,7 @@ from tensorflow import keras
 import argparse
 from datetime import datetime
 import pytz
+import csv
 IST = pytz.timezone('Asia/Kolkata')
 
 from data_processing import import_data
@@ -58,6 +59,19 @@ def save_model(enc,dec):
     
     enc.save(f"{new_dir}/encoder.h5")
     dec.save(f"{new_dir}/decoder.h5")
+    return new_dir
+
+def history_save(dicts,n,fld):
+    field_names = list(dicts.keys())
+    with open(f"{fld}/history.csv",'w') as csvFile:
+        writer = csv.DictWriter(csvFile, fieldnames=field_names)
+        writer.writeheader()
+        for i in range(n):
+            row = {}
+            for f in field_names:
+                row[f] = dicts[f][i]
+            writer.writerow(row)
+
 
 def main(args):
 
@@ -79,7 +93,10 @@ def main(args):
         batch_size = args.batch_size, 
         validation_data=(X_test,X_test)
     )
-    print(history.history)
+    folder = save_model(encoder,decoder)
+
+    history_save(history.history,args.epochs,folder)
+    
     encoder,decoder = split_model(autoEncDec)
 
     save_model(encoder,decoder)
