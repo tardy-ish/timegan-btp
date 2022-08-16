@@ -67,7 +67,9 @@ def main(args):
     
     image_shape = data.shape[1:]
     autoEncDec = create_model(image_shape)
-    autoEncDec.compile(optimizer='adam', loss=args.loss)
+    autoEncDec.compile(optimizer='adam', 
+                        loss=args.loss,
+                        metrics=['accuracy'])
     autoEncDec.summary()
 
     X_train, X_test,_, _ = train_test_split(data, data, test_size=0.05, random_state=42)
