@@ -45,8 +45,6 @@ def main(args):
     synth.train(clust_enc_data, train_steps=50000)
     save_model(synth)
 
-
-
 if __name__ == '__main__':  
 
     # Inputs for the main function
