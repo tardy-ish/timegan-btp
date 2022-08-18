@@ -34,6 +34,7 @@ def main(args):
         decoder = keras.models.load_model(f"./autoencoder_models/final/decoder.h5")
         
         data = encoder.predict(data)
+        
     elif args.mode == 'mnist':
         data = import_mnist(args.image_path,args.img_count)
 
@@ -47,7 +48,7 @@ def main(args):
 
     synth = TimeGAN(model_parameters=gan_args, hidden_dim=24, seq_len=args.seq_len, n_seq=args.n_seq, gamma=args.gamma)
     synth.train(clust_data, train_steps=50000)
-    save_model(synth)
+    save_model(synth,args.mode)
 
 if __name__ == '__main__':  
 
@@ -123,6 +124,13 @@ if __name__ == '__main__':
         help='number of images to import',
         default=80,
         type=int)
+
+    #training mode
+    parser.add_argument(
+        '--mode',
+        choices=['mnist','sat'],
+        default='mnist',
+        type=str)
 
     args = parser.parse_args() 
 
