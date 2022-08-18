@@ -13,12 +13,12 @@ from ydata_synthetic.synthesizers import ModelParameters
 from ydata_synthetic.synthesizers.timeseries import TimeGAN
 
 import argparse
-from data_processing import import_data, cluster_data
+from data_processing import cluster_data, import_sat, import_mnist
 
-def save_model(model):
+def save_model(model,mode):
     l = datetime.now(IST).strftime("%Y-%m-%d-%H-%M")
     
-    new_dir = f"./timeGAN_models/{l}"
+    new_dir = f"./timeGAN_models/{mode}/{l}"
     os.mkdir(new_dir)
     model.save(f"{new_dir}/timeGAN_model.pk1")
 
@@ -27,14 +27,18 @@ def save_model(model):
 def main(args):
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_num)
 
-    data = import_data(args.image_path,args.img_count)
+    if args.mode == 'sat':
+        data = import_sat(args.image_path,args.img_count)
 
-    encoder = keras.models.load_model(f"./autoencoder_models/final/encoder.h5")
-    decoder = keras.models.load_model(f"./autoencoder_models/final/decoder.h5")
+        encoder = keras.models.load_model(f"./autoencoder_models/final/encoder.h5")
+        decoder = keras.models.load_model(f"./autoencoder_models/final/decoder.h5")
+        
+        data = encoder.predict(data)
+    elif args.mode == 'mnist':
+        data = import_mnist(args.image_path,args.img_count)
 
-    enc_data = encoder.predict(data)
-    clust_enc_data = cluster_data(enc_data)
-    print(len(clust_enc_data),clust_enc_data[0].shape)
+    clust_data = cluster_data(data)
+    print(len(clust_data),clust_data[0].shape)
 
     gan_args = ModelParameters(batch_size=args.batch_size,
                            lr=args.lr,
@@ -42,7 +46,7 @@ def main(args):
                            layers_dim=args.dim)
 
     synth = TimeGAN(model_parameters=gan_args, hidden_dim=24, seq_len=args.seq_len, n_seq=args.n_seq, gamma=args.gamma)
-    synth.train(clust_enc_data, train_steps=50000)
+    synth.train(clust_data, train_steps=50000)
     save_model(synth)
 
 if __name__ == '__main__':  
