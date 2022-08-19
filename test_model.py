@@ -38,7 +38,7 @@ def main(args):
     elif args.mode == 'mnist':
         data = import_mnist(args.image_path,args.img_count)
 
-    clust_data = cluster_data(data)
+    clust_data = cluster_data(data,args.seq_len)
     print(len(clust_data),clust_data[0].shape)
 
     gan_args = ModelParameters(batch_size=args.batch_size,
