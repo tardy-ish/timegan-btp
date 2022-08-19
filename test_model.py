@@ -48,7 +48,7 @@ def main(args):
                            layers_dim=args.dim)
 
     synth = TimeGAN(model_parameters=gan_args, hidden_dim=24, seq_len=args.seq_len, n_seq=n_seq, gamma=args.gamma)
-    synth.train(clust_data, train_steps=500)
+    synth.train(clust_data, train_steps=args.train_steps)
     save_model(synth,args.mode)
 
 if __name__ == '__main__':  
