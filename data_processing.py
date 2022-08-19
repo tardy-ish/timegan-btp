@@ -22,7 +22,7 @@ def import_mnist(folder_path,n = -1):
     data = []
     i = 0
     for img_l in os.listdir(folder_path):
-        if not img_l.endswith(".jpeg"):
+        if not img_l.endswith(".jpg"):
             continue
         if n != -1 and i >= n:
             break
