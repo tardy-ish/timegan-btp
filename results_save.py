@@ -16,6 +16,6 @@ def result_compile_mnist(data,fld,n):
                 bckg.paste(img,(x,y))
                 x += 50
             y += 50
-        bckg.save(f"timeGAN_results/mnist/{fld}/{k+1}.png")
+        bckg.save(f"timeGAN_results/mnist/{fld}/{str(k+1).zfill(len(str(n)))}.png")
             
 
