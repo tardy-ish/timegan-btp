@@ -26,7 +26,7 @@ def main(args):
     synth = TimeGAN.load(fld)
     synth_data = synth.sample(args.sample)
     print(synth_data.shape)
-    result_compile_mnist(synth_data,args.model)
+    result_compile_mnist(synth_data,args.model,args.sample)
 
 
 if __name__ == '__main__':  

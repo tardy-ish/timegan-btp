@@ -1,10 +1,11 @@
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
+import os
 
-def result_compile_mnist(data,fld):
-    
-    for k in range(40):
+def result_compile_mnist(data,fld,n):
+    os.mkdir(f"timeGAN_results/mnist/{fld}")
+    for k in range(n):
         bckg = Image.new(mode="RGB",size=(410,160),color=(255,255,255))
         y = 10
         for i in range(3):
