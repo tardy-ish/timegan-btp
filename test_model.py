@@ -55,7 +55,7 @@ if __name__ == '__main__':
     #model path
     parser.add_argument(
         '--model',
-        help='path to model for testing',
+        help='folder where model is stored',
         default=None,
         type=str)
 
