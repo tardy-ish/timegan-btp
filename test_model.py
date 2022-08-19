@@ -34,21 +34,21 @@ def main(args):
         decoder = keras.models.load_model(f"./autoencoder_models/final/decoder.h5")
         
         data = encoder.predict(data)
-        
+
     elif args.mode == 'mnist':
         data = import_mnist(args.image_path,args.img_count)
 
-    clust_data = cluster_data(data)
-    print(len(clust_data),clust_data[0].shape)
+    # clust_data = cluster_data(data)
+    # print(len(clust_data),clust_data[0].shape)
 
-    gan_args = ModelParameters(batch_size=args.batch_size,
-                           lr=args.lr,
-                           noise_dim=args.noise_dim,
-                           layers_dim=args.dim)
+    # gan_args = ModelParameters(batch_size=args.batch_size,
+    #                        lr=args.lr,
+    #                        noise_dim=args.noise_dim,
+    #                        layers_dim=args.dim)
 
-    synth = TimeGAN(model_parameters=gan_args, hidden_dim=24, seq_len=args.seq_len, n_seq=args.n_seq, gamma=args.gamma)
-    synth.train(clust_data, train_steps=50000)
-    save_model(synth,args.mode)
+    # synth = TimeGAN(model_parameters=gan_args, hidden_dim=24, seq_len=args.seq_len, n_seq=args.n_seq, gamma=args.gamma)
+    # synth.train(clust_data, train_steps=50000)
+    # save_model(synth,args.mode)
 
 if __name__ == '__main__':  
 
