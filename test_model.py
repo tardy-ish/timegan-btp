@@ -26,7 +26,7 @@ def main(args):
     synth = TimeGAN.load(fld)
     synth_data = synth.sample(args.sample)
     print(synth_data.shape)
-    result_compile_mnist(synth_data,args.model,args.sample)
+    result_compile_mnist(synth_data,args.model,args.sample,args.seq_len)
 
 
 if __name__ == '__main__':  
@@ -34,9 +34,14 @@ if __name__ == '__main__':
     # Inputs for the main function
     parser = argparse.ArgumentParser()
 
-    #sample length
+    #sample length, seq_len
     parser.add_argument(
         '--sample',
+        help="length of samples",
+        default=24,
+        type=int)
+    parser.add_argument(
+        '--seq_len',
         help="length of sequence",
         default=24,
         type=int)
