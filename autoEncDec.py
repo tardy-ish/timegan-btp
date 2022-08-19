@@ -11,7 +11,7 @@ import pytz
 import csv
 IST = pytz.timezone('Asia/Kolkata')
 
-from data_processing import import_data
+from data_processing import import_sat
 
 def split_model(model_s):
     encoder = keras.Model(model_s.get_layer("INPUT").input,model_s.get_layer("CODE").output)
@@ -77,7 +77,7 @@ def main(args):
 
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_num)
     
-    data = import_data(args.image_path,args.img_count)
+    data = import_sat(args.image_path,args.img_count)
     
     image_shape = data.shape[1:]
     autoEncDec = create_model(image_shape)
