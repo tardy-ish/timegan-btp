@@ -31,6 +31,7 @@ def import_mnist(folder_path,n = -1):
         image = np.atleast_3d(image)
         data.append(image)
     data = np.array(data)
+    print(data.shape)
     data = data.reshape((len(data),np.prod(data.shape[1:])))
     return data
 
