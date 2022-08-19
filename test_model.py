@@ -48,7 +48,7 @@ def main(args):
                            layers_dim=args.dim)
 
     synth = TimeGAN(model_parameters=gan_args, hidden_dim=24, seq_len=args.seq_len, n_seq=n_seq, gamma=args.gamma)
-    synth.train(clust_data, train_steps=50000)
+    synth.train(clust_data, train_steps=500)
     save_model(synth,args.mode)
 
 if __name__ == '__main__':  
@@ -56,17 +56,17 @@ if __name__ == '__main__':
     # Inputs for the main function
     parser = argparse.ArgumentParser()
 
-    #seq_len, n_seq, hidden_dim, gamma
+    #seq_len, train_steps, hidden_dim, gamma
     parser.add_argument(
         '--seq_len',
         help="length of sequence",
         default=24,
         type=int)
-    # parser.add_argument(
-    #     '--n_seq',
-    #     help='',
-    #     default=6,
-    #     type=int)
+    parser.add_argument(
+        '--train_steps',
+        help='',
+        default=500,
+        type=int)
     parser.add_argument(
         '--hidden_dim',
         help='',
