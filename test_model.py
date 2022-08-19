@@ -40,13 +40,14 @@ def main(args):
 
     clust_data = cluster_data(data,args.seq_len)
     print(len(clust_data),clust_data[0].shape)
+    n_seq = clust_data[0].shape[1]
 
     gan_args = ModelParameters(batch_size=args.batch_size,
                            lr=args.lr,
                            noise_dim=args.noise_dim,
                            layers_dim=args.dim)
 
-    synth = TimeGAN(model_parameters=gan_args, hidden_dim=24, seq_len=args.seq_len, n_seq=args.n_seq, gamma=args.gamma)
+    synth = TimeGAN(model_parameters=gan_args, hidden_dim=24, seq_len=args.seq_len, n_seq=n_seq, gamma=args.gamma)
     synth.train(clust_data, train_steps=50000)
     save_model(synth,args.mode)
 
@@ -61,11 +62,11 @@ if __name__ == '__main__':
         help="length of sequence",
         default=24,
         type=int)
-    parser.add_argument(
-        '--n_seq',
-        help='',
-        default=6,
-        type=int)
+    # parser.add_argument(
+    #     '--n_seq',
+    #     help='',
+    #     default=6,
+    #     type=int)
     parser.add_argument(
         '--hidden_dim',
         help='',
