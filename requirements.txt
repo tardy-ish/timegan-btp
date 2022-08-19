@@ -1,6 +1,7 @@
 pandas==1.4.2
 numpy>=1.20.0
-ydata-synthetic --no-deps
+ydata-synthetic 
+--no-deps
 scikit-learn==1.0.2
 matplotlib==3.5.1
 seaborn==0.11.2
