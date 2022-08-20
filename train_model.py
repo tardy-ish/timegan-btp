@@ -9,6 +9,9 @@ IST = pytz.timezone('Asia/Kolkata')
 
 from tensorflow import keras
 
+import sys
+sys.path.append('./ydata_synthetic')
+
 from ydata_synthetic.synthesizers import ModelParameters
 from ydata_synthetic.synthesizers.timeseries import TimeGAN
 

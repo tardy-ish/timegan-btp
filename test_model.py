@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import argparse
 import os
+import sys
+sys.path.append('./ydata_synthetic')
 
 from ydata_synthetic.synthesizers import ModelParameters
 from ydata_synthetic.preprocessing.timeseries import processed_stock
