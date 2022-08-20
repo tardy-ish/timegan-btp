@@ -16,7 +16,7 @@ def import_sat(folder_path,n = -1):
         image = image.convert("L").resize((1024,1024))
         image = np.atleast_3d(image)
         data.append(image)
-    return np.array(data)
+    return np.array(data)/255.0
 
 def import_mnist(folder_path,n = -1):
     data = []
