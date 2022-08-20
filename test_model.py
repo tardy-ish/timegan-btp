@@ -19,7 +19,7 @@ def main(args):
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_num)
 
     
-    fld = f"timeGAN_models/{args.mode}/{args.model}/timeGAN_model.pk1"
+    fld = f"./timeGAN_models/{args.mode}/{args.model}/timeGAN_model.pk1"
     if not path.exists(fld):
         print("Path doesn't exist, closing")
         return
@@ -27,7 +27,7 @@ def main(args):
     synth_data = synth.sample(args.sample)
     print("Shape of Synthetic data:",synth_data.shape)
     n,s,_ = synth_data.shape
-    result_compile_mnist(synth_data,args.model,n,s)
+    result_compile_mnist(synth_data,args.model,n)
 
 
 if __name__ == '__main__':  

@@ -4,3 +4,5 @@
 *.pk1
 *.h5
 desktop.ini
+*.pyc
+/temp
