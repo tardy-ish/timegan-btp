@@ -5,7 +5,9 @@ import os
 from math import ceil
 
 def result_compile_mnist(data,fld,n,s):
-    os.mkdir(f"timeGAN_results/mnist/{fld}")
+    if not os.path.exists(f"timeGAN_results/mnist/{fld}"):
+        os.mkdir(f"timeGAN_results/mnist/{fld}")    
+    
     for k in range(n):
         bckg = Image.new(mode="RGB",size=(410,160),color=(255,255,255))
         y = 10

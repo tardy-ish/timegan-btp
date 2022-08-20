@@ -25,7 +25,7 @@ def main(args):
         return
     synth = TimeGAN.load(fld)
     synth_data = synth.sample(args.sample)
-    print(synth_data.shape)
+    print("Shape of Synthetic data:",synth_data.shape)
     result_compile_mnist(synth_data,args.model,args.sample,args.seq_len)
 
 
