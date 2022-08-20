@@ -50,7 +50,7 @@ def main(args):
                            noise_dim=args.noise_dim,
                            layers_dim=args.dim)
 
-    synth = TimeGAN(model_parameters=gan_args, hidden_dim=24, seq_len=args.seq_len, n_seq=n_seq, gamma=args.gamma)
+    synth = TimeGAN(model_parameters=gan_args, hidden_dim=args.hidden_dim, seq_len=args.seq_len, n_seq=n_seq, gamma=args.gamma)
     synth.train(clust_data, train_steps=args.train_steps)
     save_model(synth,args.mode)
 
