@@ -13,10 +13,6 @@ from ydata_synthetic.synthesizers.timeseries import TimeGAN
 
 from results_save import result_compile_mnist
 
-
-
-
-
 def main(args):
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_num)
 

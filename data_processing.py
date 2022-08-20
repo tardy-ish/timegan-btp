@@ -33,7 +33,7 @@ def import_mnist(folder_path,n = -1):
     data = np.array(data)
     print(data.shape)
     data = data.reshape((len(data),np.prod(data.shape[1:])))
-    return data
+    return data/255.0
 
 def cropImg(image):
     left = 4
