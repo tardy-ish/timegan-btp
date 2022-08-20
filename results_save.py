@@ -18,6 +18,7 @@ def result_compile_mnist(data,fld,n,s):
                 if i*8 + j >= s:
                     k = True
                     break
+                print(i*8 + j)
                 img = data[k][i*8 + j].reshape((28,28))
                 img = Image.fromarray(img)
                 bckg.paste(img.resize((40,40)),(x,y))
