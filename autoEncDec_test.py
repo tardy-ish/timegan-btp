@@ -90,12 +90,13 @@ def main(args):
         batch_size = args.batch_size, 
         validation_data=(X_test,X_test)
     )
+
+    encoder,decoder = split_model(autoEncDec)
+
     folder = save_model(encoder,decoder)
 
     history_save(history.history,args.epochs,folder)
     
-    encoder,decoder = split_model(autoEncDec)
-
     save_model(encoder,decoder)
     print("Models have been saved")
     
