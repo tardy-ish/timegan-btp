@@ -8,7 +8,6 @@ def result_compile_mnist(data,fld,n,s):
     data = data*255.0
     if not os.path.exists(f"timeGAN_results/mnist/{fld}"):
         os.mkdir(f"timeGAN_results/mnist/{fld}")
-    k = 0
     for k in range(n//3):
         bckg = Image.new(mode="RGB",size=(490,250),color=(255,255,255))
         y = 10

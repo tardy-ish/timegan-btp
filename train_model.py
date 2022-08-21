@@ -25,7 +25,7 @@ def save_model(model,mode):
     os.mkdir(new_dir)
     model.save(f"{new_dir}/timeGAN_model.pk1")
 
-    return new_dir
+    return l
 
 def main(args):
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_num)
@@ -52,7 +52,8 @@ def main(args):
 
     synth = TimeGAN(model_parameters=gan_args, hidden_dim=args.hidden_dim, seq_len=args.seq_len, n_seq=n_seq, gamma=args.gamma)
     synth.train(clust_data, train_steps=args.train_steps)
-    save_model(synth,args.mode)
+    t = save_model(synth,args.mode)
+    print("Model trained and saved at:",t)
 
 if __name__ == '__main__':  
 
