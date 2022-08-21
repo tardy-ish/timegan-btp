@@ -22,10 +22,10 @@ def main(args):
         print("Path doesn't exist, closing")
         return
     synth = TimeGAN.load(fld)
-    synth_data = synth.sample(args.sample)
+    synth_data = synth.sample(args.seed)
     print("Shape of Synthetic data:",synth_data.shape)
     n,s,_ = synth_data.shape
-    result_compile_mnist(synth_data,args.model,n)
+    result_compile_mnist(synth_data,args.model,n,s)
 
 
 if __name__ == '__main__':  
@@ -33,15 +33,10 @@ if __name__ == '__main__':
     # Inputs for the main function
     parser = argparse.ArgumentParser()
 
-    #sample length, seq_len
+    #sample length
     parser.add_argument(
-        '--sample',
-        help="length of samples",
-        default=24,
-        type=int)
-    parser.add_argument(
-        '--seq_len',
-        help="length of sequence",
+        '--seed',
+        help="value which affects the sample generation",
         default=24,
         type=int)
     

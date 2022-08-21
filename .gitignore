@@ -1,3 +1,4 @@
+hyper_param.ipynb
 *.jpeg
 *.jpg 
 *.png
@@ -6,4 +7,3 @@
 desktop.ini
 *.pyc
 /temp
-hyper_param.ipynb
