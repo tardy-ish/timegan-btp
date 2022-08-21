@@ -2,9 +2,10 @@ import os
 import numpy as np
 from PIL import Image
 
-def import_sat(folder_path,n = -1):
+def import_sat(folder_path,s,n = -1):
     data = []
     i = 0
+    img_size = (1024//s,1024//s)
     for img_l in os.listdir(folder_path):
         if not img_l.endswith(".jpeg"):
             continue
@@ -13,7 +14,7 @@ def import_sat(folder_path,n = -1):
         i += 1
         image = Image.open(f"{folder_path}/{img_l}")
         image = cropImg(image)
-        image = image.convert("L").resize((1024,1024))
+        image = image.convert("L").resize(img_size)
         image = np.atleast_3d(image)
         data.append(image)
     return np.array(data)/255.0

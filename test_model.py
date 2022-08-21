@@ -7,8 +7,6 @@ import os
 import sys
 sys.path.append('./ydata_synthetic')
 
-from ydata_synthetic.synthesizers import ModelParameters
-from ydata_synthetic.preprocessing.timeseries import processed_stock
 from ydata_synthetic.synthesizers.timeseries import TimeGAN
 
 from results_save import result_compile_mnist

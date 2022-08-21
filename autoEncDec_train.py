@@ -74,7 +74,7 @@ def main(args):
 
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_num)
     
-    data = import_sat(args.image_path,args.img_count)
+    data = import_sat(args.image_path,args.scale,args.img_count)
     
     image_shape = data.shape[1:]
     autoEncDec = create_model(image_shape)
@@ -110,6 +110,11 @@ if __name__ == '__main__':
         help="path to images",
         default=None,
         type=str)
+    parser.add_argument(
+        '--scale',
+        help="scale to which image gets reduced",
+        default=1,
+        type=int)
     parser.add_argument(
         '--img_count',
         help='number of images to import',
