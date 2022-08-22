@@ -29,12 +29,12 @@ def main(args):
     
     encoder,decoder = load_model(args.model)
     scale = get_scale(encoder)
-
+    decoder.summary()
 
     data = import_sat(args.image_path,args.sample,scale)
     enc_data = encoder.predict(data)
-    dec_data = decoder.predict(enc_data)
-    print(data.shape,enc_data.shape,dec_data.shape)
+    # dec_data = decoder.predict(enc_data)
+    print(data.shape,enc_data.shape)
     # X_train, X_test,_, _ = train_test_split(data, data, test_size=0.05, random_state=42)
     # history = autoEncDec.fit(
     #     X_train,X_train, 

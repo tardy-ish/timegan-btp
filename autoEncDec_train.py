@@ -100,7 +100,7 @@ def main(args):
     history_save(history.history,args.epochs,folder)
     
     save_model(encoder,decoder)
-    print("Models have been saved")
+    print("Models have been saved at:",folder)
     
 # py autoEncDec.py --image_path /workspace/timegan-btp/data/images/ --img_count -1 --epochs 300 --batch_size 8 --gpu_num 3
 if __name__ == '__main__':  
