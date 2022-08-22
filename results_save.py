@@ -25,17 +25,22 @@ def timegan_sat(data,fld,n,s):
     img_size = 1024//s
     if not os.path.exists(f"{dir_path}"):
         os.mkdir(f"{dir_path}")
-    
+    z = 0
+    x,y = 10,10
+    bckg = Image.new(mode="RGB",size=(1270,640),color=(255,255,255))
     for k in range(n):
-        bckg = Image.new(mode="RGB",size=(1270,220),color=(255,255,255))
         x = 10
         for j in range(6):
             img = data[k][j].reshape(img_size)
             img = Image.fromarray(img)
-            bckg.paste(img.resize((200,200)),(x,10))
+            bckg.paste(img.resize((200,200)),(x,y))
             x += 210
-
-        bckg.save(f"{dir_path}/{str(k+1).zfill(len(str(n)))}.png")
+        y += 210
+        if k%3 == 2:
+            z += 1
+            bckg.save(f"{dir_path}/{str(z).zfill(len(str(n)))}.png")
+            y = 10
+            bckg = Image.new(mode="RGB",size=(1270,640),color=(255,255,255))
     pass
 
 def enc_result(orig, enc, dec, scale, fld, n = 5):
