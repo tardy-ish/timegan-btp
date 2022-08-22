@@ -14,8 +14,8 @@ from results_save import result_compile_sat
 
 def load_model(fld):
     pth = f"./autoencoder_models/{fld}"
-    e = keras.models.load_model(f"{pth}/encoder.h5")
-    d = keras.models.load_model(f"{pth}/decoder.h5")
+    e = keras.models.load_model(f"{pth}/encoder.h5",compile=False)
+    d = keras.models.load_model(f"{pth}/decoder.h5",compile=False)
     return e,d
 
 def get_scale(enc):
@@ -29,29 +29,12 @@ def main(args):
     
     encoder,decoder = load_model(args.model)
     scale = get_scale(encoder)
-    decoder.summary()
 
     data = import_sat(args.image_path,args.sample,scale)
     enc_data = encoder.predict(data)
-    # dec_data = decoder.predict(enc_data)
-    print(data.shape,enc_data.shape)
-    # X_train, X_test,_, _ = train_test_split(data, data, test_size=0.05, random_state=42)
-    # history = autoEncDec.fit(
-    #     X_train,X_train, 
-    #     epochs = args.epochs, 
-    #     batch_size = args.batch_size, 
-    #     validation_data=(X_test,X_test)
-    # )
+    dec_data = decoder.predict(enc_data)
 
-    # encoder,decoder = split_model(autoEncDec)
-
-    # folder = save_model(encoder,decoder)
-
-    # history_save(history.history,args.epochs,folder)
-    
-    # save_model(encoder,decoder)
-    # print("Models have been saved")
-    
+    result_compile_sat(data,enc_data,dec_data,scale,args.model,args.sample)    
 
 if __name__ == '__main__':  
 
