@@ -52,7 +52,8 @@ def save_model(enc,dec):
     l = datetime.now(IST).strftime("%Y-%m-%d-%H-%M")
     
     new_dir = f"./autoencoder_models/{l}"
-    os.mkdir(new_dir)
+    if not os.path.exists(new_dir):
+        os.mkdir(new_dir)
     
     enc.save(f"{new_dir}/encoder.h5")
     dec.save(f"{new_dir}/decoder.h5")
