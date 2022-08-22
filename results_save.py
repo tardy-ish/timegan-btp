@@ -6,22 +6,39 @@ import os
 
 def result_compile_mnist(data,fld,n,s):
     data = data*255.0
-    if not os.path.exists(f"timeGAN_results/mnist/{fld}"):
-        os.mkdir(f"timeGAN_results/mnist/{fld}")
-    for k in range(n//3):
+    dir_path = f"./timeGAN_results/mnist/{fld}"
+    if not os.path.exists(f"{dir_path}"):
+        os.mkdir(f"{dir_path}")
+    for k in range(n):
         bckg = Image.new(mode="RGB",size=(490,250),color=(255,255,255))
         y = 10
-        for j in range(3):
-            x = 10
-            for i in range(s):
-                img = data[k*3 + j][i].reshape((28,28))
-                img = Image.fromarray(img)
-                bckg.paste(img.resize((70,70)),(x,y))
-                x += 80
-            y += 80
-        bckg.save(f"timeGAN_results/mnist/{fld}/{str(k+1).zfill(len(str(n)))}.png")
-            
-def result_compile_sat(orig, enc, dec, scale, fld, n = 5):
+        for j in range(6):
+            img = data[k][j].reshape((28,28))
+            img = Image.fromarray(img)
+            bckg.paste(img.resize((200,200)),(x,y))
+            x += 210
+        bckg.save(f"{dir_path}/{str(k+1).zfill(len(str(n)))}.png")
+
+def timegan_sat(data,fld,n,s):
+    data = data*255.0
+    dir_path = f"./timeGAN_results/sat/{fld}"
+    img_size = 1024//s
+    if not os.path.exists(f"{dir_path}"):
+        os.mkdir(f"{dir_path}")
+    
+    for k in range(n):
+        bckg = Image.new(mode="RGB",size=(1270,220),color=(255,255,255))
+        x = 10
+        for j in range(6):
+            img = data[k][j].reshape(img_size)
+            img = Image.fromarray(img)
+            bckg.paste(img.resize((200,200)),(x,10))
+            x += 210
+
+        bckg.save(f"{dir_path}/{str(k+1).zfill(len(str(n)))}.png")
+    pass
+
+def enc_result(orig, enc, dec, scale, fld, n = 5):
     dir_path = f"./autoencoder_results/{fld}"
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)

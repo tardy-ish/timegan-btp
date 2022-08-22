@@ -9,7 +9,9 @@ import csv
 IST = pytz.timezone('Asia/Kolkata')
 
 from data_processing import import_sat
-from results_save import result_compile_sat
+from data_processing import get_scale
+from results_save import enc_result
+
 
 
 def load_model(fld):
@@ -18,23 +20,19 @@ def load_model(fld):
     d = keras.models.load_model(f"{pth}/decoder.h5",compile=False)
     return e,d
 
-def get_scale(enc):
-    s = enc.layers[0].output_shape[0][1]
-    s = 1024//s
-    return s
-
 def main(args):
 
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_num)
     
     encoder,decoder = load_model(args.model)
-    scale = get_scale(encoder)
+    scale = get_scale(encoder,1)
 
     data = import_sat(args.image_path,args.sample,scale)
     enc_data = encoder.predict(data)
     dec_data = decoder.predict(enc_data)
 
-    result_compile_sat(data,enc_data,dec_data,scale,args.model,args.sample)    
+    print(data.shape,enc_data.shape,dec_data.shape)
+    # enc_result(data,enc_data,dec_data,scale,args.model,args.sample)    
 
 if __name__ == '__main__':  
 

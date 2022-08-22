@@ -2,6 +2,11 @@ import os
 import numpy as np
 from PIL import Image
 
+def get_scale(mod,n = 1):
+    s = mod.layers[n].output_shape[1]
+    s = 1024//s
+    return s
+
 def import_sat(folder_path,n = -1,s = 1):
     data = []
     i = 0

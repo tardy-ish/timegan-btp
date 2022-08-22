@@ -33,10 +33,10 @@ def main(args):
     if args.mode == 'sat':
         data = import_sat(args.image_path,args.img_count)
 
-        encoder = keras.models.load_model(f"./autoencoder_models/final/encoder.h5")
-        decoder = keras.models.load_model(f"./autoencoder_models/final/decoder.h5")
+        encoder = keras.models.load_model(f"./autoencoder_models/{args.model}/encoder.h5")
         
         data = encoder.predict(data)
+        data = data.reshape((len(data),np.prod(data.shape[1:])))
 
     elif args.mode == 'mnist':
         data = import_mnist(args.image_path,args.img_count)
@@ -130,12 +130,17 @@ if __name__ == '__main__':
         default=80,
         type=int)
 
-    #training mode
+    #training mode, pick autoencoder
     parser.add_argument(
         '--mode',
         choices=['mnist','sat'],
         default='mnist',
         type=str)
+    parser.add_argument(
+            '--model',
+            help='folder where model is stored',
+            default=None,
+            type=str)
 
     args = parser.parse_args() 
 
