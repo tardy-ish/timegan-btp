@@ -25,6 +25,8 @@ def result_compile_sat(orig, enc, dec, scale, fld, n = 5):
     dir_path = f"./autoencoder_results/{fld}"
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
+    with open(f"{dir_path}/_SCALE_{scale}","w") as f:
+        f.close()
     img_size = 1024//scale
     orig = orig*255.0
     enc = enc*255.0
