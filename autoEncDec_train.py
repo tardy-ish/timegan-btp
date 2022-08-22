@@ -93,7 +93,7 @@ def main(args):
         validation_data=(X_test,X_test)
     )
 
-    encoder,decoder = split_model(autoEncDec)
+    encoder,decoder = split_model(autoEncDec,args.scale)
 
     folder = save_model(encoder,decoder)
 
