@@ -21,7 +21,7 @@ def result_compile_mnist(data,fld,n,s):
             y += 80
         bckg.save(f"timeGAN_results/mnist/{fld}/{str(k+1).zfill(len(str(n)))}.png")
             
-def result_save(orig, enc, dec, img_size, dir_path,n = 5):
+def result_compile_sat(orig, enc, dec, img_size, dir_path, n = 5):
     for i in range(n):
         orig_img = orig[i].reshape((img_size,img_size))
         enc_img  = enc[i].reshape((img_size//16,img_size//8))
@@ -44,3 +44,5 @@ def result_save(orig, enc, dec, img_size, dir_path,n = 5):
         txt.text((580+76,25),"decoded", fill=(0,0,0), font=fnt)
         txt.text((325,320),  img_name , fill=(0,0,0), font=fnt)
         m_img.save(f"{dir_path}/{img_name}.png")
+
+

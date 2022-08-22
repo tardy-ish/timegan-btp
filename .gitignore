@@ -1,4 +1,4 @@
-hyper_param.ipynb
+*.ipynb
 *.jpeg
 *.jpg 
 *.png
@@ -6,4 +6,5 @@ hyper_param.ipynb
 *.h5
 desktop.ini
 *.pyc
+*.csv
 /temp

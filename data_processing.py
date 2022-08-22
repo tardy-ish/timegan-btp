@@ -2,7 +2,7 @@ import os
 import numpy as np
 from PIL import Image
 
-def import_sat(folder_path,s,n = -1):
+def import_sat(folder_path,n = -1,s = 1):
     data = []
     i = 0
     img_size = (1024//s,1024//s)

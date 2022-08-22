@@ -9,24 +9,32 @@ import csv
 IST = pytz.timezone('Asia/Kolkata')
 
 from data_processing import import_sat
+from results_save import result_compile_sat
 
 
 def load_model(fld):
     pth = f"./autoencoder_models/{fld}"
-    e = keras.models.load_module(f"{pth}/encoder.h5")
-    d = keras.models.load_module(f"{pth}/decoder.h5")
+    e = keras.models.load_model(f"{pth}/encoder.h5")
+    d = keras.models.load_model(f"{pth}/decoder.h5")
     return e,d
 
+def get_scale(enc):
+    s = enc.layers[0].output_shape[0][1]
+    s = 1024//s
+    return s
 
 def main(args):
 
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_num)
     
-    # encoder,decoder = load_model(args.model)
+    encoder,decoder = load_model(args.model)
+    scale = get_scale(encoder)
 
 
-    data = import_sat(args.image_path,1,args.img_count)
-
+    data = import_sat(args.image_path,args.sample,scale)
+    enc_data = encoder.predict(data)
+    dec_data = decoder.predict(enc_data)
+    print(data.shape,enc_data.shape,dec_data.shape)
     # X_train, X_test,_, _ = train_test_split(data, data, test_size=0.05, random_state=42)
     # history = autoEncDec.fit(
     #     X_train,X_train, 
@@ -64,6 +72,12 @@ if __name__ == '__main__':
         help='folder where model is stored',
         default=None,
         type=str)    
+    parser.add_argument(
+        '--gpu_num',
+        help='Select GPU',
+        default=3,
+        type=int)
+    
     
     
 

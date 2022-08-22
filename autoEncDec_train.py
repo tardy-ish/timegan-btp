@@ -10,9 +10,10 @@ IST = pytz.timezone('Asia/Kolkata')
 
 from data_processing import import_sat
 
-def split_model(model_s):
+def split_model(model_s,s):
+    inp_shape = (32//s,32//s,8)
     encoder = keras.Model(model_s.get_layer("INPUT").input,model_s.get_layer("CODE").output)
-    code_input_layer = keras.Input(shape=(32, 32, 8), name="CODE_INPUT")
+    code_input_layer = keras.Input(shape=inp_shape, name="CODE_INPUT")
     x = code_input_layer
     for lay in model_s.layers[11:]:
         x = lay(x)
@@ -75,7 +76,7 @@ def main(args):
 
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_num)
     
-    data = import_sat(args.image_path,args.scale,args.img_count)
+    data = import_sat(args.image_path,args.img_count,args.scale)
     
     image_shape = data.shape[1:]
     autoEncDec = create_model(image_shape)
