@@ -94,7 +94,7 @@ def main(args):
     )
 
     encoder,decoder = split_model(autoEncDec,args.scale)
-
+    decoder.summary()
     folder = save_model(encoder,decoder)
 
     history_save(history.history,args.epochs,folder)
