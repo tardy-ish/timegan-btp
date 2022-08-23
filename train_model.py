@@ -16,7 +16,7 @@ from ydata_synthetic.synthesizers import ModelParameters
 from ydata_synthetic.synthesizers.timeseries import TimeGAN
 
 import argparse
-from data_processing import cluster_data, import_sat, import_mnist
+from data_processing import cluster_data, import_sat, import_mnist, get_scale
 
 def save_model(model,mode):
     l = datetime.now(IST).strftime("%Y-%m-%d-%H-%M")
@@ -31,10 +31,10 @@ def main(args):
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_num)
 
     if args.mode == 'sat':
-        data = import_sat(args.image_path,args.img_count)
-
         encoder = keras.models.load_model(f"./autoencoder_models/{args.model}/encoder.h5")
-        
+        scale = get_scale(encoder)
+
+        data = import_sat(args.image_path,args.img_count,scale)
         data = encoder.predict(data)
         data = data.reshape((len(data),np.prod(data.shape[1:])))
 
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--seq_len',
         help="length of sequence",
-        default=24,
+        default=6,
         type=int)
     parser.add_argument(
         '--train_steps',
