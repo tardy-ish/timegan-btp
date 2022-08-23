@@ -31,8 +31,8 @@ def main(args):
     enc_data = encoder.predict(data)
     dec_data = decoder.predict(enc_data)
 
-    print(data.shape,enc_data.shape,dec_data.shape)
-    # enc_result(data,enc_data,dec_data,scale,args.model,args.sample)    
+    # print(data.shape,enc_data.shape,dec_data.shape)
+    enc_result(data,enc_data,dec_data,scale,args.model,args.sample)    
 
 if __name__ == '__main__':  
 

@@ -138,7 +138,7 @@ if __name__ == '__main__':
         type=str)
     parser.add_argument(
             '--model',
-            help='folder where model is stored',
+            help='folder where autoencoder model is stored',
             default=None,
             type=str)
 
