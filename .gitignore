@@ -9,3 +9,5 @@ desktop.ini
 *.csv
 /temp
 _SCALE_*
+testing.py
+/env

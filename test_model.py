@@ -11,10 +11,6 @@ from ydata_synthetic.synthesizers.timeseries import TimeGAN
 from tensorflow import keras
 
 from data_processing import get_scale
-
-
-
-
 from results_save import result_compile_mnist, timegan_sat
 
 def main(args):
